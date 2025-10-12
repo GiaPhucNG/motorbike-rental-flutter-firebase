@@ -1,6 +1,6 @@
 {
-    "name": "rentapp",
-    "short_name": "rentapp",
+    "name": "vimoto_app",
+    "short_name": "vimoto_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
