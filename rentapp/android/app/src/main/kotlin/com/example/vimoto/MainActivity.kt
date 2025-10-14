@@ -1,4 +1,4 @@
-package com.example.vimoto_app
+package com.example.vimoto
 
 import io.flutter.embedding.android.FlutterActivity
 

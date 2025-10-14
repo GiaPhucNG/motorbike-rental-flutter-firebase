@@ -1,4 +1,4 @@
-# vimoto_app
+# vimoto
 
 A new Flutter project.
 
