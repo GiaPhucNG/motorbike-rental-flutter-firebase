@@ -42,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAXzxeIj94cIt5O5U9DS5OO_bTOLBKGxo8',
-    appId: '1:105583620603:web:1eb9226b26d95121d95b5e',
+    appId: '1:105583620603:web:12be4b0e0471954dd95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     authDomain: 'motorbikerentalapp-3b6ad.firebaseapp.com',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    measurementId: 'G-JC0FY0T78F',
+    measurementId: 'G-PRWE8T9149',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAUGDxBY15eBJewaRWKzlwYu8RpXGS9kNM',
-    appId: '1:105583620603:android:fe947093cc2885c6d95b5e',
+    appId: '1:105583620603:android:1909c5569b07d0dcd95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
@@ -60,29 +60,29 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBDgg5_xsgT0FUbsC2Cgka5CJD5A9LdOOE',
-    appId: '1:105583620603:ios:340a7b1468fe1dd7d95b5e',
+    appId: '1:105583620603:ios:80ed24077ee0eb61d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    iosBundleId: 'com.example.vimotoApp',
+    iosBundleId: 'com.example.vimoto',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBDgg5_xsgT0FUbsC2Cgka5CJD5A9LdOOE',
-    appId: '1:105583620603:ios:340a7b1468fe1dd7d95b5e',
+    appId: '1:105583620603:ios:80ed24077ee0eb61d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    iosBundleId: 'com.example.vimotoApp',
+    iosBundleId: 'com.example.vimoto',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyAXzxeIj94cIt5O5U9DS5OO_bTOLBKGxo8',
-    appId: '1:105583620603:web:12be4b0e0471954dd95b5e',
+    appId: '1:105583620603:web:640c7841c028616ed95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     authDomain: 'motorbikerentalapp-3b6ad.firebaseapp.com',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    measurementId: 'G-PRWE8T9149',
+    measurementId: 'G-YY50WNC2X3',
   );
 }

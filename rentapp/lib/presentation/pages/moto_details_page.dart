@@ -23,12 +23,11 @@ class MotoDetailsPage extends StatelessWidget {
       body: Column(
         children: [
           MotoCard(moto: Moto(model: moto.model, fuelCapacity: moto.fuelCapacity, distance: moto.distance, pricePerHour: moto.pricePerHour)),
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(20),
@@ -77,7 +76,7 @@ class MotoDetailsPage extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(20,),
             child: Column(
               children: [
                 MoreCard(moto: Moto(model: moto.model+"-1", distance: moto.distance+100, fuelCapacity: moto.fuelCapacity+100, pricePerHour: moto.pricePerHour+10)),

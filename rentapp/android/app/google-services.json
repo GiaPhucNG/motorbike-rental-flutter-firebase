@@ -26,6 +26,44 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:105583620603:android:e448a54fb66de7a8d95b5e",
+        "android_client_info": {
+          "package_name": "com.example.rentapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUGDxBY15eBJewaRWKzlwYu8RpXGS9kNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105583620603:android:1909c5569b07d0dcd95b5e",
+        "android_client_info": {
+          "package_name": "com.example.vimoto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUGDxBY15eBJewaRWKzlwYu8RpXGS9kNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:105583620603:android:fe947093cc2885c6d95b5e",
         "android_client_info": {
           "package_name": "com.example.vimoto_app"
