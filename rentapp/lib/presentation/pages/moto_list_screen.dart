@@ -5,7 +5,6 @@ import 'package:motorbike_rental_app/presentation/widgets/moto_card.dart';
 class MotoListScreen extends StatelessWidget {
   final List<Moto> motos = [
     Moto(
-      id: '001',
       model: 'Honda Vision',
       fuelCapacity: 5.5,    // Dung tích bình nhiên liệu (lít)
       distance: 10.0,       // Quãng đường đã đi (km)
@@ -13,7 +12,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 2. Honda PCX 160 (Thương hiệu Honda)
     Moto(
-      id: '002',
       model: 'Honda PCX 160',
       fuelCapacity: 8.0,
       distance: 15.0,
@@ -21,7 +19,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 3. Yamaha Aerox 155 (Thương hiệu Yamaha)
     Moto(
-      id: '003',
       model: 'Yamaha Aerox 155',
       fuelCapacity: 5.5,
       distance: 20.0,
@@ -29,7 +26,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 4. Yamaha MT-03 (Thương hiệu Yamaha)
     Moto(
-      id: '004',
       model: 'Yamaha MT-03',
       fuelCapacity: 14.0,
       distance: 25.0,
@@ -37,7 +33,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 5. Vespa Sprint (Thương hiệu Vespa)
     Moto(
-      id: '005',
       model: 'Vespa Sprint',
       fuelCapacity: 7.0,
       distance: 12.0,
@@ -45,7 +40,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 6. Vespa GTS 300 (Thương hiệu Vespa)
     Moto(
-      id: '006',
       model: 'Vespa GTS 300',
       fuelCapacity: 9.0,
       distance: 18.0,
@@ -53,7 +47,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 7. Suzuki Gixxer (Thương hiệu Suzuki)
     Moto(
-      id: '007',
       model: 'Suzuki Gixxer',
       fuelCapacity: 12.0,
       distance: 30.0,
@@ -61,7 +54,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 8. Suzuki Hayabusa (Thương hiệu Suzuki)
     Moto(
-      id: '008',
       model: 'Suzuki Hayabusa',
       fuelCapacity: 21.0,
       distance: 40.0,
@@ -69,7 +61,6 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 9. Kawasaki Ninja 250 (Thương hiệu Kawasaki)
     Moto(
-      id: '009',
       model: 'Kawasaki Ninja 250',
       fuelCapacity: 17.0,
       distance: 25.0,
@@ -77,27 +68,10 @@ class MotoListScreen extends StatelessWidget {
     ),
     // 10. Kawasaki Z900 (Thương hiệu Kawasaki)
     Moto(
-      id: '010',
       model: 'Kawasaki Z900',
       fuelCapacity: 17.0,
       distance: 35.0,
       pricePerHour: 22.0,
-    ),
-    // 11. Hero Splendor Plus (Thương hiệu Hero)
-    Moto(
-      id: '011',
-      model: 'Hero Splendor Plus',
-      fuelCapacity: 9.5,
-      distance: 15.0,
-      pricePerHour: 7.0,
-    ),
-    // 12. TVS Apache RTR 160 (Thương hiệu TVS)
-    Moto(
-      id: '012',
-      model: 'TVS Apache RTR 160',
-      fuelCapacity: 12.0,
-      distance: 20.0,
-      pricePerHour: 11.0,
     ),
   ];
 
