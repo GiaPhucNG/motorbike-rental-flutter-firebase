@@ -5,6 +5,7 @@ import 'package:motorbike_rental_app/firebase_options.dart';
 import 'package:motorbike_rental_app/presentation/pages/moto_details_page.dart';
 import 'package:motorbike_rental_app/presentation/pages/moto_list_screen.dart';
 import 'package:motorbike_rental_app/presentation/pages/onboarding_page.dart';
+import 'package:motorbike_rental_app/presentation/pages/login_page.dart';
 
 
 void main() async{
@@ -12,6 +13,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  print("🔥 Firebase connected successfully!");
   runApp(const MyApp());
 }
 
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: OnboardingPage(),
+      home: Login(),
     );
   }
 }
