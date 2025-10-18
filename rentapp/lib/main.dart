@@ -6,6 +6,8 @@ import 'package:motorbike_rental_app/presentation/pages/moto_details_page.dart';
 import 'package:motorbike_rental_app/presentation/pages/moto_list_screen.dart';
 import 'package:motorbike_rental_app/presentation/pages/onboarding_page.dart';
 import 'package:motorbike_rental_app/presentation/pages/login_page.dart';
+import 'package:motorbike_rental_app/presentation/pages/signup_page.dart';
+
 
 
 void main() async{
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Login(),
+      home: SignUp(),
     );
   }
 }
