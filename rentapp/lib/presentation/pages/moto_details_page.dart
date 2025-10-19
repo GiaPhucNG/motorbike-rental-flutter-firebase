@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:motorbike_rental_app/data/models/moto.dart';
-import 'package:motorbike_rental_app/presentation/widgets/more_card.dart';
-import 'package:motorbike_rental_app/presentation/widgets/moto_card.dart';
+import 'package:rentapp/data/models/moto.dart'; // <<< ĐÃ SỬA: Import Moto model
+import 'package:rentapp/presentation/pages/MapsDetailsPage.dart'; // <<< ĐÃ SỬA: Đổi tên file nếu cần
+import 'package:rentapp/presentation/widgets/moto_card.dart'; // <<< ĐÃ SỬA: Sử dụng MotoCard
+import 'package:rentapp/presentation/widgets/more_card.dart'; // <<< ĐÃ SỬA: Cần đảm bảo MoreCard hỗ trợ Moto
 
-class MotoDetailsPage extends StatelessWidget {
-  final Moto moto;
+class MotoDetailsPage extends StatefulWidget { // <<< ĐÃ SỬA: Đổi tên class cho phù hợp
+  final Moto moto; // <<< ĐÃ SỬA: Sử dụng Moto
 
-  const MotoDetailsPage({super.key, required this.moto});
+  const MotoDetailsPage({super.key, required this.moto}); // <<< ĐÃ SỬA
+
+  @override
+  State<MotoDetailsPage> createState() => _MotoDetailsPageState(); // <<< ĐÃ SỬA
+}
+
+class _MotoDetailsPageState extends State<MotoDetailsPage> with SingleTickerProviderStateMixin { // <<< ĐÃ SỬA
+  AnimationController? _controller;
+  Animation<double>? _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        duration: const Duration(seconds: 3),
+        vsync: this
+    );
+
+    _animation = Tween<double>(begin: 1.0, end: 1.5).animate(_controller!)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    _controller!.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose(); // <<< SỬA LỖI: Gọi dispose() thay vì forward()
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,80 +45,93 @@ class MotoDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [ // Thêm const để tối ưu
             Icon(Icons.info_outline),
-            Text('Information')
+            Text(' Information')
           ],
         ),
       ),
-      body: Column(
-        children: [
-          MotoCard(moto: Moto(model: moto.model, fuelCapacity: moto.fuelCapacity, distance: moto.distance, pricePerHour: moto.pricePerHour)),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFE8F5E9),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 10,
-                              spreadRadius: 5
-                          )
-                        ]
-                    ),
-                    child: Column(
-                      children: [
-                        CircleAvatar(radius: 40, backgroundImage: AssetImage('asset/user.png'),),
-                        SizedBox(height: 10,),
-                        Text('Phuc Nguyen', style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text('\$4,235', style: TextStyle(color: Colors.grey),),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20,),
-                Expanded(
-                  child: Container(
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          image: AssetImage('assets/maps.png'),
-                          fit: BoxFit.cover
+      // Bọc bằng SingleChildScrollView để tránh lỗi overflow khi xoay màn hình hoặc trên màn hình nhỏ
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Truyền trực tiếp widget.moto
+            MotoCard(moto: widget.moto), // <<< ĐÃ SỬA
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: const Color(0xffF3F3F3),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [ // Thêm const
+                            BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 10,
+                                spreadRadius: 5)
+                          ]),
+                      child: Column(
+                        children: const [ // Thêm const
+                          CircleAvatar(radius: 40, backgroundImage: AssetImage('assets/user.png')),
+                          SizedBox(height: 10),
+                          Text('Jane Cooper', style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text('\$4,253', style: TextStyle(color: Colors.grey)),
+                        ],
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                        ),
-                      ],
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MapsDetailsPage(moto: widget.moto)) // <<< ĐÃ SỬA
+                        );
+                      },
+                      child: Container(
+                        height: 170,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [ // Thêm const
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                  spreadRadius: 5)
+                            ]),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Transform.scale(
+                            scale: _animation!.value,
+                            alignment: Alignment.center,
+                            child: Image.asset('assets/maps.png', fit: BoxFit.cover),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(20,),
-            child: Column(
-              children: [
-                MoreCard(moto: Moto(model: moto.model+"-1", distance: moto.distance+100, fuelCapacity: moto.fuelCapacity+100, pricePerHour: moto.pricePerHour+10)),
-                SizedBox(height: 10,),
-                MoreCard(moto: Moto(model: moto.model+"-2", distance: moto.distance+200, fuelCapacity: moto.fuelCapacity+200, pricePerHour: moto.pricePerHour+20)),
-                SizedBox(height: 10,),
-                MoreCard(moto: Moto(model: moto.model+"-3", distance: moto.distance+300, fuelCapacity: moto.fuelCapacity+300, pricePerHour: moto.pricePerHour+30)),
-              ],
-            ),
-          )
-        ],
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  // <<< ĐÃ SỬA: Cần đảm bảo MoreCard nhận được đối tượng Moto
+                  MoreCard(moto: Moto(model: "${widget.moto.model}-1", distance: widget.moto.distance + 100, fuelCapacity: widget.moto.fuelCapacity + 100, pricePerHour: widget.moto.pricePerHour + 10)),
+                  const SizedBox(height: 5),
+                  MoreCard(moto: Moto(model: "${widget.moto.model}-2", distance: widget.moto.distance + 200, fuelCapacity: widget.moto.fuelCapacity + 200, pricePerHour: widget.moto.pricePerHour + 20)),
+                  const SizedBox(height: 5),
+                  MoreCard(moto: Moto(model: "${widget.moto.model}-3", distance: widget.moto.distance + 300, fuelCapacity: widget.moto.fuelCapacity + 300, pricePerHour: widget.moto.pricePerHour + 30)),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

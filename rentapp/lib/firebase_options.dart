@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAUGDxBY15eBJewaRWKzlwYu8RpXGS9kNM',
-    appId: '1:105583620603:android:1909c5569b07d0dcd95b5e',
+    appId: '1:105583620603:android:e448a54fb66de7a8d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
@@ -60,29 +60,29 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBDgg5_xsgT0FUbsC2Cgka5CJD5A9LdOOE',
-    appId: '1:105583620603:ios:80ed24077ee0eb61d95b5e',
+    appId: '1:105583620603:ios:f3b1cf29a4ac5980d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    iosBundleId: 'com.example.vimoto',
+    iosBundleId: 'com.example.rentapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBDgg5_xsgT0FUbsC2Cgka5CJD5A9LdOOE',
-    appId: '1:105583620603:ios:80ed24077ee0eb61d95b5e',
+    appId: '1:105583620603:ios:f3b1cf29a4ac5980d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    iosBundleId: 'com.example.vimoto',
+    iosBundleId: 'com.example.rentapp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyAXzxeIj94cIt5O5U9DS5OO_bTOLBKGxo8',
-    appId: '1:105583620603:web:640c7841c028616ed95b5e',
+    appId: '1:105583620603:web:f3d03ac8d788f7e5d95b5e',
     messagingSenderId: '105583620603',
     projectId: 'motorbikerentalapp-3b6ad',
     authDomain: 'motorbikerentalapp-3b6ad.firebaseapp.com',
     storageBucket: 'motorbikerentalapp-3b6ad.firebasestorage.app',
-    measurementId: 'G-YY50WNC2X3',
+    measurementId: 'G-ZPPR09BEMT',
   );
 }
