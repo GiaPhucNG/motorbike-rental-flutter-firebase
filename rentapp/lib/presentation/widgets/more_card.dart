@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motorbike_rental_app/data/models/moto.dart';
+import 'package:rentapp/data/models/moto.dart';
 
 class MoreCard extends StatelessWidget {
   final Moto moto;
@@ -11,15 +11,15 @@ class MoreCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          )
-        ]
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            )
+          ]
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +37,7 @@ class MoreCard extends StatelessWidget {
                   Icon(Icons.directions_bike, color: Colors.white, size: 16,),
                   SizedBox(width: 5,),
                   Text(
-                      '> ${moto.distance} km',
+                    '> ${moto.distance} km',
                     style: TextStyle(color: Colors.white, fontSize: 14),
 
                   ),

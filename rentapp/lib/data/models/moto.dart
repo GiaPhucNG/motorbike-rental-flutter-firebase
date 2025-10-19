@@ -6,4 +6,12 @@ class Moto {
 
   Moto({required this.model, required this.fuelCapacity, required this.distance, required this.pricePerHour});
 
+  factory Moto.fromMap(Map<String, dynamic> map) {
+    return Moto(
+        model: map['model'],
+        distance: map['distance'],
+        fuelCapacity: map['fuelCapacity'],
+        pricePerHour: map['pricePerHour']
+    );
+  }
 }

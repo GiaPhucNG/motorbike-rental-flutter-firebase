@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:motorbike_rental_app/data/models/moto.dart';
-import 'package:motorbike_rental_app/presentation/widgets/moto_card.dart';
+import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/presentation/widgets/moto_card.dart';
 
 class MotoListScreen extends StatelessWidget {
   final List<Moto> motos = [
@@ -80,10 +80,10 @@ class MotoListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(
-          itemCount: motos.length,
-          itemBuilder: (context, index){
-            return MotoCard(moto: motos[index]);
-          },
+        itemCount: motos.length,
+        itemBuilder: (context, index){
+          return MotoCard(moto: motos[index]);
+        },
       ),
     );
   }

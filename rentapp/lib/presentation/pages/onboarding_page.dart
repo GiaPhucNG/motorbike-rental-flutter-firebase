@@ -1,6 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:motorbike_rental_app/presentation/pages/moto_list_screen.dart';
+import 'package:rentapp/presentation/pages/moto_list_screen.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key:key);
@@ -15,12 +15,12 @@ class OnboardingPage extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/onboarding.png'),
-                        fit: BoxFit.cover
-                    )
-                ),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/onboarding.png'),
+                      fit: BoxFit.cover
+                  )
+              ),
             ),
           ),
           Expanded(
@@ -36,7 +36,7 @@ class OnboardingPage extends StatelessWidget {
                   ),
                   SizedBox(height:10, ),
                   Text('Choose your favorite motobike for renting \nExperience the travel with a lower price',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
                   ),
                   SizedBox(height:10, ),
                   SizedBox(
