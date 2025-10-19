@@ -33,12 +33,31 @@ class _LoginState extends State<Login> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      String message = 'Đã xảy ra lỗi. Vui lòng thử lại.';
-      if (e.code == 'user-not-found' || e.code == 'invalid-email') {
-        message = "Không tìm thấy người dùng với email này.";
-      } else if (e.code == 'wrong-password') {
-        message = "Mật khẩu không chính xác.";
+      String message;
+
+      switch (e.code) {
+        case 'user-not-found':
+          message = 'Email không tồn tại. Vui lòng đăng ký tài khoản mới.';
+          break;
+        case 'wrong-password':
+          message = 'Mật khẩu không chính xác. Vui lòng thử lại.';
+          break;
+        case 'invalid-email':
+          message = 'Địa chỉ email không hợp lệ.';
+          break;
+        case 'user-disabled':
+          message = 'Tài khoản này đã bị vô hiệu hóa.';
+          break;
+        case 'too-many-requests':
+          message = 'Bạn đăng nhập sai quá nhiều lần. Vui lòng thử lại sau.';
+          break;
+        case 'network-request-failed':
+          message = 'Không thể kết nối đến máy chủ. Kiểm tra lại Internet.';
+          break;
+        default:
+          message = 'Đã xảy ra lỗi. Vui lòng thử lại.';
       }
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

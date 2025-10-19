@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_auth/email_auth.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -10,50 +10,46 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
 
-  // Logic gửi email reset mật khẩu
-  Future<void> passwordReset() async {
-    if (emailController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        backgroundColor: Colors.red,
-        content: Text("Please enter your email.", style: TextStyle(fontSize: 16)),
-      ));
-      return;
-    }
+  // Gửi OTP đến email
+  void sendOTP() async {
+    final emailAuth = EmailAuth(sessionName: "Motorbike Rental App");
 
-    try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text.trim());
-      
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.green,
-          content: Text(
-            "Password reset link sent! Check your email.",
-            style: TextStyle(fontSize: 16),
-          ),
-        ));
-        // Tùy chọn: Tự động quay về trang đăng nhập sau khi gửi thành công
-        // Navigator.pop(context); 
-      }
-    } on FirebaseAuthException catch (e) {
-      String message = "An error occurred. Please try again.";
-      if (e.code == 'user-not-found' || e.code == 'invalid-email') {
-        message = "No user found for that email.";
-      }
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(message, style: const TextStyle(fontSize: 16)),
-        ));
-      }
+    bool result = await emailAuth.sendOtp(
+      recipientMail: emailController.text.trim(),
+      otpLength: 6,
+    );
+
+    if (result) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("OTP sent successfully!")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to send OTP")),
+      );
     }
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
+  // Xác minh OTP
+  void verifyOTP() {
+    final emailAuth = EmailAuth(sessionName: "Motorbike Rental App");
+
+    bool result = emailAuth.validateOtp(
+      recipientMail: emailController.text.trim(),
+      userOtp: otpController.text.trim(),
+    );
+
+    if (result) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("OTP verified successfully!")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid OTP")),
+      );
+    }
   }
 
   @override
@@ -67,8 +63,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFFE8F5E9), // Xanh lá rất nhạt
-              Color(0xFFA5D6A7), // Xanh lá nhạt
+              Color(0xFFE8F5E9),
+              Color(0xFFA5D6A7),
             ],
           ),
         ),
@@ -101,23 +97,38 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        "Please enter your email address to receive a password reset link.",
+                        "Enter your email to get OTP for password reset.",
                         style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                       ),
-                      const SizedBox(height: 50),
-                      
-                      // Ô nhập email 3D
+                      const SizedBox(height: 40),
+
+                      // Ô nhập email
                       _buildNeumorphicTextField(
                         controller: emailController,
                         hintText: 'Your Email',
                         icon: Icons.email_outlined,
                       ),
+                      const SizedBox(height: 25),
+
+                      // Nút gửi OTP
+                      _buildNeumorphicButton(
+                        onTap: sendOTP,
+                        text: "Send OTP",
+                      ),
                       const SizedBox(height: 40),
 
-                      // Nút Gửi 3D
+                      // Ô nhập OTP
+                      _buildNeumorphicTextField(
+                        controller: otpController,
+                        hintText: 'Enter OTP',
+                        icon: Icons.lock_outline,
+                      ),
+                      const SizedBox(height: 25),
+
+                      // Nút xác minh OTP
                       _buildNeumorphicButton(
-                        onTap: passwordReset,
-                        text: "Send Reset Link",
+                        onTap: verifyOTP,
+                        text: "Verify OTP",
                       ),
                       const Spacer(),
                     ],
@@ -131,8 +142,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
-  // WIDGET HELPER CHO HIỆU ỨNG 3D (NEUMORPHISM)
-   Widget _buildNeumorphicBackButton() {
+  // ================== WIDGET NEUMORPHIC ==================
+
+  Widget _buildNeumorphicBackButton() {
     return Container(
       width: 50,
       height: 50,
@@ -184,20 +196,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
       child: TextField(
         controller: controller,
-        keyboardType: TextInputType.emailAddress,
-        style: const TextStyle(color: Color(0xFF1B5E20), fontSize: 15, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+          color: Color(0xFF1B5E20),
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey[500], fontSize: 15),
           prefixIcon: Icon(icon, color: Colors.grey[500], size: 22),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
         ),
       ),
     );
   }
 
-  Widget _buildNeumorphicButton({required VoidCallback onTap, required String text}) {
+  Widget _buildNeumorphicButton({
+    required VoidCallback onTap,
+    required String text,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -205,7 +224,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [Color(0xFF66BB6A), Color(0xFF43A047)],
-            begin: Alignment.topLeft, end: Alignment.bottomRight),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
