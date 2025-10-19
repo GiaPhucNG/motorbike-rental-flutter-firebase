@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:motorbike_rental_app/presentation/pages/moto_list_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rentapp/presentation/pages/moto_list_screen.dart';
 
 class OnboardingPage extends StatelessWidget {
   final User user;
@@ -29,7 +30,9 @@ class OnboardingPage extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/onboarding.png'),
-                      fit: BoxFit.cover)),
+                      fit: BoxFit.cover
+                  )
+              ),
             ),
           ),
           Expanded(
@@ -48,12 +51,9 @@ class OnboardingPage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Choose your favorite motobike for renting \nExperience the travel with a lower price',
+                  SizedBox(height:10, ),
+                  Text('Choose your favorite motobike for renting \nExperience the travel with a lower price',
                     style: TextStyle(color: Colors.grey, fontSize: 16),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                   SizedBox(
                     width: 320,
