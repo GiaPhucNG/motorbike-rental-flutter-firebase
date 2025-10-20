@@ -4,8 +4,9 @@ import 'package:rentapp/presentation/pages/onboarding_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
 import 'package:rentapp/presentation/pages/login_page.dart';
-import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_text.dart';
-import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_button.dart';
+// widget
+import 'package:rentapp/presentation/widgets/Auth/neumorphic_text.dart';
+import 'package:rentapp/presentation/widgets/Auth/neumorphic_button.dart';
 
 // Lớp xử lý CSDL, giữ nguyên từ code của bạn
 class DatabaseMethods {
