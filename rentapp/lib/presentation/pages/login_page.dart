@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:motorbike_rental_app/presentation/pages/onboarding_page.dart';
-import 'package:motorbike_rental_app/presentation/pages/signup_page.dart';
-import 'package:motorbike_rental_app/presentation/pages/forgotpassword_page.dart';
-import 'package:motorbike_rental_app/core/services/GoogleAuthService.dart';
+import 'package:rentapp/presentation/pages/onboarding_page.dart';
+import 'package:rentapp/presentation/pages/signup_page.dart';
+import 'package:rentapp/presentation/pages/forgotpassword_page.dart';
+import 'package:rentapp/core/services/GoogleAuthService.dart';
 
 import 'dart:ui';
 
