@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:motorbike_rental_app/presentation/pages/onboarding_page.dart';
+import 'package:rentapp/presentation/pages/onboarding_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
-import 'package:motorbike_rental_app/presentation/pages/login_page.dart';
-import 'package:motorbike_rental_app/presentation/widgets/Auth/Signup/neumorphic_text.dart';
-import 'package:motorbike_rental_app/presentation/widgets/Auth/Signup/neumorphic_button.dart';
+import 'package:rentapp/presentation/pages/login_page.dart';
+import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_text.dart';
+import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_button.dart';
 
 // Lớp xử lý CSDL, giữ nguyên từ code của bạn
 class DatabaseMethods {

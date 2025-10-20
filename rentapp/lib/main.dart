@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rentapp/firebase_options.dart';
-import 'package:rentapp/presentation/pages/moto_details_page.dart';
-import 'package:rentapp/presentation/pages/onboarding_page.dart';
-import 'package:rentapp/presentation/pages/moto_list_screen.dart';
+import 'package:rentapp/presentation/pages/login_page.dart';
 
 
 void main() async{
@@ -26,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: OnboardingPage(),
+      home: const Login(),
     );
   }
 }
