@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_text.dart';
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_button.dart';
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_circle_button.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_text.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_button.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_circle_button.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});

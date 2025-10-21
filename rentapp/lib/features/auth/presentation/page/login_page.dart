@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rentapp/presentation/pages/onboarding_page.dart';
-import 'package:rentapp/presentation/pages/signup_page.dart';
-import 'package:rentapp/presentation/pages/forgotpassword_page.dart';
+import 'package:rentapp/features/auth/presentation/page/signup_page.dart';
+import 'package:rentapp/features/auth/presentation/page/forgotpassword_page.dart';
 import 'package:rentapp/core/services/GoogleAuthService.dart';
 // widget
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_text.dart';
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_button.dart';
-import 'package:rentapp/presentation/widgets/Auth/neumorphic_icon_button.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_text.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_button.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_icon_button.dart';
 
 import 'dart:ui';
 
