@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/presentation/widgets/filter_dialog.dart';
 import 'package:rentapp/presentation/widgets/moto_card.dart';
 import 'package:rentapp/presentation/widgets/search_bar.dart';
 
@@ -26,6 +27,7 @@ class _MotoListScreenState extends State<MotoListScreen> {
 
   List<Moto> filteredMotos = [];
   final TextEditingController _searchController = TextEditingController();
+  String? _selectedPriceRange;
 
   @override
   void initState() {
@@ -42,20 +44,44 @@ class _MotoListScreenState extends State<MotoListScreen> {
   // Hàm lọc danh sách xe máy
   void _filterMotos(String query) {
     setState(() {
-      if (query.isEmpty) {
-        filteredMotos = motos;
-      } else {
-        filteredMotos = motos
-            .where((moto) => moto.model.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      }
+      filteredMotos = motos.where((moto) {
+        // Tìm kiếm theo model
+        final matchesQuery = query.isEmpty || moto.model.toLowerCase().contains(query.toLowerCase());
+
+        // Lọc theo giá
+        final matchesPrice = _selectedPriceRange == null ||
+            (_selectedPriceRange == 'under_10' && moto.pricePerHour < 10.0) ||
+            (_selectedPriceRange == '10_to_15' && moto.pricePerHour >= 10.0 && moto.pricePerHour <= 15.0) ||
+            (_selectedPriceRange == 'over_15' && moto.pricePerHour > 15.0);
+
+        return matchesQuery && matchesPrice;
+      }).toList();
     });
   }
 
   // Hàm xóa từ khóa tìm kiếm
   void _clearSearch() {
     _searchController.clear();
-    _filterMotos(''); // Làm mới danh sách khi xóa
+    _filterMotos('');
+  }
+
+  // Hàm áp dụng bộ lọc
+  void _applyFilter(String? priceRange) {
+    setState(() {
+      _selectedPriceRange = priceRange;
+      _filterMotos(_searchController.text);
+    });
+  }
+
+  // Hàm hiển thị dialog bộ lọc
+  void _showFilterDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => FilterDialog(
+        selectedPriceRange: _selectedPriceRange,
+        onApply: _applyFilter,
+      ),
+    );
   }
 
   @override
@@ -66,11 +92,22 @@ class _MotoListScreenState extends State<MotoListScreen> {
       ),
       body: Column(
         children: [
-          // Sử dụng widget SearchBar
-          SearchBar(
-            controller: _searchController,
-            onChanged: _filterMotos,
-            onClear: _clearSearch,
+          // Thanh tìm kiếm và nút lọc
+          Row(
+            children: [
+              Expanded(
+                child: SearchBar(
+                  controller: _searchController,
+                  onChanged: _filterMotos,
+                  onClear: _clearSearch,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.filter_list),
+                onPressed: _showFilterDialog,
+                tooltip: 'Filter by Price',
+              ),
+            ],
           ),
           // Danh sách xe máy
           Expanded(
