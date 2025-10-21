@@ -94,6 +94,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "105583620603-gfe9691bnv2ooisiqnndobapn46tnhnr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vimoto",
+            "certificate_hash": "94928722f6bdc331b41108b03a6e9f832c26034d"
+          }
+        },
+        {
           "client_id": "105583620603-q46tu05ug90qjv5cp2hr1d76jqpkhi1s.apps.googleusercontent.com",
           "client_type": 3
         }
