@@ -165,7 +165,7 @@ class _LoginState extends State<Login> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute( builder: (context) => const ForgotPasswordPage()),
                               );
@@ -201,7 +201,7 @@ class _LoginState extends State<Login> {
                                 onTap: () async {
                                   User? user = await GoogleAuthService().signInWithGoogle();
                                   if (user != null) {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(builder: (_) => OnboardingPage(user: user)),
                                     );
