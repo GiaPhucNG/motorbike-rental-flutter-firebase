@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NeumorphicButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String text;
 
   const NeumorphicButton({
