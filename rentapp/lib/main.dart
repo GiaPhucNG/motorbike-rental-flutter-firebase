@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rentapp/firebase_options.dart';
 import 'package:rentapp/features/auth/presentation/page/login_page.dart';
-
+import 'package:rentapp/features/auth/presentation/page/profile_page.dart';
+import 'package:rentapp/presentation/pages/moto_list_screen.dart';
+import 'package:rentapp/features/auth/presentation/page/main_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
