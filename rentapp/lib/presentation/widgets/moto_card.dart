@@ -32,9 +32,10 @@ class MotoCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset('assets/moto_img.png', height: 120,),
-            Text(moto.model, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-            SizedBox(height: 10,),
+            Image.asset('assets/moto_img.png', height: 120),
+            Text(moto.model, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text('Status: ${moto.status.toUpperCase()}', style: TextStyle(color: moto.status == 'available' ? Colors.green : Colors.red)),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

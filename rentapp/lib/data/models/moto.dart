@@ -13,6 +13,21 @@ class Moto {
     required this.fuelCapacity,
     required this.distance,
     required this.pricePerHour,
+    required this.status,
+  });
+
+  // Factory để convert từ Map (Firebase data)
+  factory Moto.fromMap(String id, Map<String, dynamic> data) {
+    return Moto(
+      id: id,
+      model: data['model'] ?? '',
+      fuelCapacity: (data['fuelCapacity'] as num?)?.toDouble() ?? 0.0,
+      distance: (data['distance'] as num?)?.toDouble() ?? 0.0,
+      pricePerHour: (data['pricePerHour'] as num?)?.toDouble() ?? 0.0,
+      status: data['status'] ?? 'available',
+    );
+  }
+
   });
 
   // ✅ Chuyển đổi từ Firestore DocumentSnapshot sang đối tượng Moto
@@ -34,6 +49,7 @@ class Moto {
       'fuelCapacity': fuelCapacity,
       'distance': distance,
       'pricePerHour': pricePerHour,
+      'status': status,
     };
   }
 }
