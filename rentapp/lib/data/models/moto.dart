@@ -1,39 +1,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart'; 
+import 'package:rentapp/features/moto/domain/entities/location_entity.dart';
 
-class Moto {
-  final String? id; // ✅ Thêm trường id, có thể null khi tạo mới
-  final String model;
-  final double fuelCapacity;
-  final double distance;
-  final double pricePerHour;
 
-  Moto({
-    this.id, // ✅ Thêm id vào constructor
-    required this.model,
-    required this.fuelCapacity,
-    required this.distance,
-    required this.pricePerHour,
-  });
+// Thêm `extends MotoEntity` ở đây
+class Moto extends MotoEntity {
+  
+  // Constructor sẽ gọi constructor của lớp cha (super)
+  const Moto({
+    String? id,
+    required String model,
+    required double fuelCapacity,
+    required double distance,
+    required double pricePerHour,
+    LocationEntity? location,
+  }) : super(
+          id: id,
+          model: model,
+          fuelCapacity: fuelCapacity,
+          distance: distance,
+          pricePerHour: pricePerHour,
+          location: location,
+        );
 
-  // ✅ Chuyển đổi từ Firestore DocumentSnapshot sang đối tượng Moto
+  // Các phương thức dành riêng cho lớp Data vẫn giữ nguyên
   factory Moto.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
-    Map<String, dynamic> data = doc.data()!;
+    final data = doc.data()!;
+    final geoPoint = data['location'] as GeoPoint?;
+    final location = geoPoint != null 
+        ? LocationEntity(latitude: geoPoint.latitude, longitude: geoPoint.longitude) 
+        : null;
     return Moto(
-      id: doc.id, // Lấy ID từ chính document
-      model: data['model'] ?? '',
-      distance: (data['distance'] as num?)?.toDouble() ?? 0.0,
-      fuelCapacity: (data['fuelCapacity'] as num?)?.toDouble() ?? 0.0,
-      pricePerHour: (data['pricePerHour'] as num?)?.toDouble() ?? 0.0,
+      id: doc.id,
+      model: data['model'] as String,
+      fuelCapacity: (data['fuelCapacity'] as num).toDouble(),
+      distance: (data['distance'] as num).toDouble(),
+      pricePerHour: (data['pricePerHour'] as num).toDouble(),
+      location: location
     );
   }
 
-  // ✅ Chuyển đổi từ đối tượng Moto sang Map để lưu vào Firestore
   Map<String, dynamic> toMap() {
     return {
       'model': model,
       'fuelCapacity': fuelCapacity,
       'distance': distance,
       'pricePerHour': pricePerHour,
+      'location': location != null 
+          ? GeoPoint(location!.latitude, location!.longitude) 
+          : null,
     };
   }
 }
