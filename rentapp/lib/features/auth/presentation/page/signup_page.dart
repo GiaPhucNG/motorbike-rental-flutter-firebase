@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rentapp/presentation/pages/onboarding_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
-import 'package:rentapp/presentation/pages/login_page.dart';
-import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_text.dart';
-import 'package:rentapp/presentation/widgets/Auth/Signup/neumorphic_button.dart';
+import 'package:rentapp/features/auth/presentation/page/login_page.dart';
+// widget
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_text.dart';
+import 'package:rentapp/features/auth/presentation/widgets/neumorphic_button.dart';
 
 // Lớp xử lý CSDL, giữ nguyên từ code của bạn
 class DatabaseMethods {
