@@ -12,6 +12,7 @@ class Moto extends MotoEntity {
     required double fuelCapacity,
     required double distance,
     required double pricePerHour,
+    required String status,
     LocationEntity? location,
   }) : super(
           id: id,
@@ -20,6 +21,7 @@ class Moto extends MotoEntity {
           distance: distance,
           pricePerHour: pricePerHour,
           location: location,
+          status: status,
         );
 
   // Các phương thức dành riêng cho lớp Data vẫn giữ nguyên
@@ -35,6 +37,7 @@ class Moto extends MotoEntity {
       fuelCapacity: (data['fuelCapacity'] as num).toDouble(),
       distance: (data['distance'] as num).toDouble(),
       pricePerHour: (data['pricePerHour'] as num).toDouble(),
+      status: data['status'] ?? 'available',
       location: location
     );
   }

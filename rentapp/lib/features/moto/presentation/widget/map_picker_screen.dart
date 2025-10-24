@@ -64,7 +64,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
           // Lớp nền của bản đồ, lấy từ OpenStreetMap
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.example.app', // Thay bằng tên package của bạn
+            userAgentPackageName: 'com.example.vimoto', 
           ),
           
           // Lớp hiển thị Marker

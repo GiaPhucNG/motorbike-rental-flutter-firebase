@@ -7,6 +7,7 @@ class MotoEntity extends Equatable {
   final double fuelCapacity;
   final double distance;
   final double pricePerHour;
+  final String status;
   final LocationEntity? location;
 
   const MotoEntity({
@@ -15,9 +16,10 @@ class MotoEntity extends Equatable {
     required this.fuelCapacity,
     required this.distance,
     required this.pricePerHour,
+    required this.status,
     this.location,
   });
 
   @override
-  List<Object?> get props => [id, model, fuelCapacity, distance, pricePerHour, location];
+  List<Object?> get props => [id, model, fuelCapacity, distance, pricePerHour, status, location];
 }

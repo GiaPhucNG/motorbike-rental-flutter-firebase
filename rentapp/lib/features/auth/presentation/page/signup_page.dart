@@ -64,6 +64,7 @@ class _SignUpState extends State<SignUp> {
         Map<String, dynamic> userInfoMap = {
           "name": nameController.text,
           "email": emailController.text,
+          "role": "user"
         };
         
         await DatabaseMethods().addUserDetails(userInfoMap, userCredential.user!.uid);
