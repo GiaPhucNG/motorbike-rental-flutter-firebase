@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rentapp/features/moto/domain/entities/moto_entity.dart'; 
 import 'package:rentapp/features/moto/domain/entities/location_entity.dart';
 
-
 // Thêm `extends MotoEntity` ở đây
 class Moto extends MotoEntity {
   
@@ -49,6 +48,7 @@ class Moto extends MotoEntity {
       'location': location != null 
           ? GeoPoint(location!.latitude, location!.longitude) 
           : null,
+      'status': status,
     };
   }
 }

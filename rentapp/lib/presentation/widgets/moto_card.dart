@@ -32,6 +32,9 @@ class MotoCard extends StatelessWidget {
               moto.model,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
+            // Check
+            Text(moto.model, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text('Status: ${moto.status.toUpperCase()}', style: TextStyle(color: moto.status == 'available' ? Colors.green : Colors.red)),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
