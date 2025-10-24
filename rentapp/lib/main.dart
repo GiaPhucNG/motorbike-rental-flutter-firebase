@@ -6,6 +6,7 @@ import 'package:rentapp/features/moto/presentation/pages/moto_crud_screen.dart';
 import 'package:rentapp/features/owner/presentation/page/moto_crud_page.dart';
 import 'package:rentapp/features/moto/moto_injection.dart' as di;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rentapp/features/moto/presentation/widget/map_picker_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         create: (context) => di.sl<MotoBloc>(),
         child: const MotoCrudScreen(),
       ),
+      // home: const MapPickerScreen(),
     );
   }
 }

@@ -15,6 +15,7 @@ class MotoRepositoryImpl implements MotoRepository {
       fuelCapacity: moto.fuelCapacity,
       distance: moto.distance,
       pricePerHour: moto.pricePerHour,
+      location: moto.location,
     ));
   }
 
@@ -26,6 +27,7 @@ class MotoRepositoryImpl implements MotoRepository {
       fuelCapacity: moto.fuelCapacity,
       distance: moto.distance,
       pricePerHour: moto.pricePerHour,
+      location: moto.location,
     ));
   }
 
@@ -44,6 +46,7 @@ class MotoRepositoryImpl implements MotoRepository {
               fuelCapacity: m.fuelCapacity,
               distance: m.distance,
               pricePerHour: m.pricePerHour,
+              location: m.location,
             ))
         .toList();
   }
@@ -59,6 +62,7 @@ class MotoRepositoryImpl implements MotoRepository {
       fuelCapacity: moto.fuelCapacity,
       distance: moto.distance,
       pricePerHour: moto.pricePerHour,
+      location: moto.location,
     );
   }
 }

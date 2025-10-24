@@ -8,7 +8,6 @@ class MotoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(moto.pricePerHour.toStringAsFixed(2));
     return GestureDetector(
       onTap: () {
         Navigator.push(
