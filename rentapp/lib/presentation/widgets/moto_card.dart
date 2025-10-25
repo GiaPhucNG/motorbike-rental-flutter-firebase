@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp/presentation/pages/moto_details_page.dart';
-import '../../data/models/moto.dart';
+import '../../data/models/moto_model.dart';
 
 class MotoCard extends StatelessWidget {
   final Moto moto;

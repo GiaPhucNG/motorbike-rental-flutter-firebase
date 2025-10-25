@@ -1,0 +1,18 @@
+import 'package:rentapp/features/auth/domain/entities/user_entity.dart';
+import 'package:rentapp/features/auth/domain/repositories/auth_repository.dart';
+
+class SignInUseCase {
+  final AuthRepository repository;
+
+  SignInUseCase({required this.repository});
+
+  Future<UserEntity> call({
+    required String email,
+    required String password,
+  }) async {
+    return await repository.signIn(
+      email: email,
+      password: password,
+    );
+  }
+}

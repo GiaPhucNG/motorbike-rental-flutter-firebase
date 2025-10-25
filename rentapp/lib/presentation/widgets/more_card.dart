@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 
 class MoreCard extends StatelessWidget {
   final Moto moto;

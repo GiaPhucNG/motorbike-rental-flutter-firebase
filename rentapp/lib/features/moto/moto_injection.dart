@@ -1,5 +1,4 @@
-// injection_container.dart
-
+// moto_injection.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rentapp/features/moto/data/moto_remote_data_source.dart';
@@ -11,8 +10,9 @@ import 'package:rentapp/features/moto/presentation/bloc/moto_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  // External
-  sl.registerLazySingleton(() => FirebaseFirestore.instance);
+  if (!sl.isRegistered<FirebaseFirestore>()) {
+    sl.registerLazySingleton(() => FirebaseFirestore.instance);
+  }
 
   // Data Sources
   sl.registerLazySingleton<MotoRemoteDataSource>(

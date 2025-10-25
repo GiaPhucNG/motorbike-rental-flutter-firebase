@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp/core/constants/app_colors.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 import 'package:rentapp/features/moto/presentation/widget/map_picker_screen.dart';
 import 'package:rentapp/features/moto/domain/entities/location_entity.dart';
@@ -51,16 +51,7 @@ class _MotoFormDialogState extends State<MotoFormDialog> {
     _priceController = TextEditingController(
       text: widget.moto?.pricePerHour.toString() ?? '',
     );
-    
-    // Lấy location từ moto nếu có
     _selectedLocationEntity = widget.moto?.location;
-    
-    // Debug: In ra để kiểm tra
-    print('=== MotoFormDialog initState ===');
-    print('isEditing: $isEditing');
-    print('widget.moto: ${widget.moto}');
-    print('location from moto: ${widget.moto?.location}');
-    print('_selectedLocationEntity: $_selectedLocationEntity');
   }
 
   @override
@@ -355,14 +346,6 @@ class _MotoFormDialogState extends State<MotoFormDialog> {
 
   void _handleSave() {
     final model = _modelController.text;
-    
-    // DEBUG
-    print('═══════════════════════════════════════');
-    print('💾 HANDLE SAVE');
-    print('Model: $model');
-    print('Location: $_selectedLocationEntity');
-    print('═══════════════════════════════════════\n');
-    
     if (model.isNotEmpty) {
       final moto = Moto(
         id: isEditing ? widget.moto!.id : null,
@@ -370,10 +353,9 @@ class _MotoFormDialogState extends State<MotoFormDialog> {
         fuelCapacity: double.tryParse(_fuelController.text) ?? 0.0,
         distance: double.tryParse(_distanceController.text) ?? 0.0,
         pricePerHour: double.tryParse(_priceController.text) ?? 0.0,
-        location: _selectedLocationEntity, // Lưu location đã chọn
+        status: isEditing ? widget.moto!.status : 'available',
+        location: _selectedLocationEntity, 
       );
-      
-      print('Moto object created: $moto');
       Navigator.of(context).pop(moto);
     }
   }
