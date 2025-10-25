@@ -1,6 +1,6 @@
 import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 import 'package:rentapp/features/moto/domain/repositories/moto_repository.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'moto_remote_data_source.dart';
 
 class MotoRepositoryImpl implements MotoRepository {

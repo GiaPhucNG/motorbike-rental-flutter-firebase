@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 
 abstract class MotoRemoteDataSource {
   Future<void> addMoto(Moto moto);

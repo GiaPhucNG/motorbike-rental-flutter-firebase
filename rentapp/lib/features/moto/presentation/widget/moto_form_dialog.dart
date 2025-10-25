@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp/core/constants/app_colors.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 import 'package:rentapp/features/moto/presentation/widget/map_picker_screen.dart';
 import 'package:rentapp/features/moto/domain/entities/location_entity.dart';

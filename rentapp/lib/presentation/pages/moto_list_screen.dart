@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide SearchBar;
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'package:rentapp/presentation/widgets/filter_dialog.dart';
 import 'package:rentapp/presentation/widgets/moto_card.dart';
 import 'package:rentapp/presentation/widgets/search_bar.dart';

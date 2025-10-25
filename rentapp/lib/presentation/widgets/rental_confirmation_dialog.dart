@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'package:rentapp/presentation/pages/payment_page.dart';
 
 class RentalConfirmationDialog extends StatelessWidget {

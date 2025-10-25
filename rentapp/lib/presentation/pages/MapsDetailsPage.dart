@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:rentapp/data/models/moto.dart';
+import 'package:rentapp/data/models/moto_model.dart';
 import 'package:rentapp/presentation/widgets/rental_confirmation_dialog.dart'; // Import widget dialog (cần tạo)
 
 class MapsDetailsPage extends StatelessWidget {
