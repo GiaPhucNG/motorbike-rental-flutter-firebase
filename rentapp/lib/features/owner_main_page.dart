@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp/features/auth/presentation/page/profile_page.dart';
-import 'package:rentapp/presentation/pages/moto_list_screen.dart';
+import 'package:rentapp/features/moto/presentation/pages/moto_crud_screen.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+// THAY ĐỔI 2: Đổi tên class thành OwnerMainPage
+class OwnerMainPage extends StatefulWidget {
+  const OwnerMainPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<OwnerMainPage> createState() => _OwnerMainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+// Đổi tên state tương ứng
+class _OwnerMainPageState extends State<OwnerMainPage> {
   int _selectedIndex = 0;
   late final List<Widget> _pages;
 
@@ -17,9 +19,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pages = <Widget>[
-      // SỬA Ở ĐÂY: Bỏ `const` đi
-      MotoListScreen(), // Trang 0
-      ProfilePage(), // Trang 1
+      // THAY ĐỔI 3: Thay thế MotoListScreen bằng MotoCrudScreen
+      const MotoCrudScreen(), 
+      ProfilePage(),     
     ];
   }
 
@@ -37,17 +39,18 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          // THAY ĐỔI 4 (Tùy chọn): Cập nhật icon và label cho phù hợp
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Trang chủ',
+            icon: Icon(Icons.edit_note), // Icon quản lý
+            label: 'Manage Moto', // Label rõ ràng hơn
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Hồ sơ',
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
+        selectedItemColor: Colors.deepPurple, // Bạn có thể đổi màu cho Owner nếu muốn
         onTap: _onItemTapped,
       ),
     );

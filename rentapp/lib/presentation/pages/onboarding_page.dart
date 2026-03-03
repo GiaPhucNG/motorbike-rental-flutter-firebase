@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // Đảm bảo đường dẫn import này chính xác với vị trí file main_page.dart của bạn
-import 'package:rentapp/features/main_page.dart';
+import 'package:rentapp/features/user_main_page.dart';
 import 'package:rentapp/features/auth/domain/entities/user_entity.dart';
 
 class OnboardingPage extends StatelessWidget {

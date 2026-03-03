@@ -1,12 +1,14 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:rentapp/data/models/moto_model.dart';
-import 'package:rentapp/presentation/widgets/rental_confirmation_dialog.dart'; // Import widget dialog (cần tạo)
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
+import 'package:rentapp/presentation/widgets/rental_confirmation_dialog.dart';
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 
+// 1. Dùng StatelessWidget vì không cần quản lý state
 class MapsDetailsPage extends StatelessWidget {
-  final Moto moto;
+  // 2. Nhận trực tiếp đối tượng MotoEntity
+  final MotoEntity moto;
 
   const MapsDetailsPage({super.key, required this.moto});
 
@@ -16,37 +18,62 @@ class MapsDetailsPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          // Thêm màu trắng cho icon để nổi bật trên nền bản đồ
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      // 3. Sử dụng trực tiếp đối tượng 'moto' để xây dựng UI
       body: Stack(
         children: [
           FlutterMap(
             options: MapOptions(
-              center: const LatLng(10.8231, 106.6297), // Ví dụ: TP. HCM
-              initialZoom: 13.0,
+              // Lấy vị trí từ đối tượng moto, nếu không có thì dùng vị trí mặc định
+              center: moto.location != null
+                  ? LatLng(moto.location!.latitude, moto.location!.longitude)
+                  : const LatLng(10.8231, 106.6297), // Mặc định: TP. HCM
+              initialZoom: 15.0,
             ),
             children: [
               TileLayer(
                 urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 subdomains: const ['a', 'b', 'c'],
               ),
+              // Thêm Marker cho vị trí của xe nếu có
+              if (moto.location != null)
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      width: 80.0,
+                      height: 80.0,
+                      point: LatLng(moto.location!.latitude, moto.location!.longitude),
+                      child: const Icon(
+                        Icons.location_pin,
+                        color: Colors.red,
+                        size: 40,
+                      ),
+                    ),
+                  ],
+                ),
             ],
           ),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
-            child: motoDetailsCard(context, moto: moto), // Truyền context vào
+            // Tất cả các widget con bây giờ đều dùng 'moto' được truyền vào
+            child: motoDetailsCard(context, moto: moto),
           ),
         ],
       ),
     );
   }
 
-  Widget motoDetailsCard(BuildContext context, {required Moto moto}) {
+  // Các widget con không thay đổi
+  Widget motoDetailsCard(BuildContext context, {required MotoEntity moto}) {
+    // ... (Toàn bộ code của motoDetailsCard giữ nguyên)
     return SizedBox(
       height: 350,
       child: Stack(
@@ -61,7 +88,8 @@ class MapsDetailsPage extends StatelessWidget {
                 topRight: Radius.circular(30),
               ),
               boxShadow: [
-                BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                BoxShadow(
+                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
               ],
             ),
             child: Column(
@@ -70,7 +98,10 @@ class MapsDetailsPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   moto.model,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -82,7 +113,8 @@ class MapsDetailsPage extends StatelessWidget {
                       style: const TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     const SizedBox(width: 10),
-                    const Icon(Icons.local_gas_station, color: Colors.white, size: 14),
+                    const Icon(Icons.local_gas_station,
+                        color: Colors.white, size: 14),
                     const SizedBox(width: 5),
                     Text(
                       '${moto.fuelCapacity.toStringAsFixed(1)} L',
@@ -109,7 +141,9 @@ class MapsDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Features", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  const Text("Features",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   featureIcons(),
                   const SizedBox(height: 20),
                   Row(
@@ -117,13 +151,15 @@ class MapsDetailsPage extends StatelessWidget {
                     children: [
                       Text(
                         '\$${moto.pricePerHour}/day',
-                        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           if (moto.status == 'rented') {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('This bike is already rented!')),
+                              const SnackBar(
+                                  content: Text('This bike is already rented!')),
                             );
                             return;
                           }
@@ -137,9 +173,11 @@ class MapsDetailsPage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
-                        child: const Text('Book Now', style: TextStyle(color: Colors.white)),
+                        child: const Text('Book Now',
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -147,18 +185,19 @@ class MapsDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 50,
-            right: 20,
-            child: Image.asset('assets/white_car.png'),
-          ),
+          // Positioned(
+          //   top: 50,
+          //   right: 20,
+          //   child: Image.asset('assets/white_car.png'),
+          // ),
         ],
       ),
     );
   }
 
   Widget featureIcons() {
-    return Row(
+    // ... (Giữ nguyên)
+     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         featureIcon(Icons.local_gas_station, 'Petrol', '4-stroke'),
@@ -169,6 +208,7 @@ class MapsDetailsPage extends StatelessWidget {
   }
 
   Widget featureIcon(IconData icon, String title, String subtitle) {
+    // ... (Giữ nguyên)
     return Container(
       width: 100,
       height: 100,

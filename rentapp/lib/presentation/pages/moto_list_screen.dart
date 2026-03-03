@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:rentapp/data/models/moto_model.dart';
+import 'package:rentapp/features/moto/data/moto_remote_data_source.dart';
+import 'package:rentapp/features/moto/data/moto_repository_impl.dart';
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
+import 'package:rentapp/features/moto/domain/repositories/moto_repository.dart';
+import 'package:rentapp/features/moto/domain/usecases/moto_crud_usecase.dart';
 import 'package:rentapp/presentation/widgets/filter_dialog.dart';
 import 'package:rentapp/presentation/widgets/moto_card.dart';
 import 'package:rentapp/presentation/widgets/search_bar.dart';
@@ -12,27 +18,61 @@ class MotoListScreen extends StatefulWidget {
 }
 
 class _MotoListScreenState extends State<MotoListScreen> {
-  final List<Moto> motos = [
-    Moto(id: "1", model: 'Honda Vision', fuelCapacity: 5.5, distance: 10.0, pricePerHour: 8.0, status: 'available'),
-    Moto(id: "2", model: 'Honda PCX 160', fuelCapacity: 8.0, distance: 15.0, pricePerHour: 10.0, status: 'available'),
-    Moto(id: "3", model: 'Yamaha Aerox 155', fuelCapacity: 5.5, distance: 20.0, pricePerHour: 12.0, status: 'available'),
-    Moto(id: "4", model: 'Yamaha MT-03', fuelCapacity: 14.0, distance: 25.0, pricePerHour: 15.0, status: 'available'),
-    Moto(id: "5", model: 'Vespa Sprint', fuelCapacity: 7.0, distance: 12.0, pricePerHour: 10.0, status: 'available'),
-    Moto(id: "6", model: 'Vespa GTS 300', fuelCapacity: 9.0, distance: 18.0, pricePerHour: 13.0, status: 'available'),
-    Moto(id: "7", model: 'Suzuki Gixxer', fuelCapacity: 12.0, distance: 30.0, pricePerHour: 14.0, status: 'available'),
-    Moto(id: "8", model: 'Suzuki Hayabusa', fuelCapacity: 21.0, distance: 40.0, pricePerHour: 20.0, status: 'available'),
-    Moto(id: "9", model: 'Kawasaki Ninja 250', fuelCapacity: 17.0, distance: 25.0, pricePerHour: 18.0, status: 'available'),
-    Moto(id: "10", model: 'Kawasaki Z900', fuelCapacity: 17.0, distance: 35.0, pricePerHour: 22.0, status: 'available'),
-  ];
-
-  List<Moto> filteredMotos = [];
+  // final List<Moto> motos = [
+  //   Moto(id: "1", model: 'Honda Vision', fuelCapacity: 5.5, distance: 10.0, pricePerHour: 8.0, status: 'available'),
+  //   Moto(id: "2", model: 'Honda PCX 160', fuelCapacity: 8.0, distance: 15.0, pricePerHour: 10.0, status: 'available'),
+  //   Moto(id: "3", model: 'Yamaha Aerox 155', fuelCapacity: 5.5, distance: 20.0, pricePerHour: 12.0, status: 'available'),
+  //   Moto(id: "4", model: 'Yamaha MT-03', fuelCapacity: 14.0, distance: 25.0, pricePerHour: 15.0, status: 'available'),
+  //   Moto(id: "5", model: 'Vespa Sprint', fuelCapacity: 7.0, distance: 12.0, pricePerHour: 10.0, status: 'available'),
+  //   Moto(id: "6", model: 'Vespa GTS 300', fuelCapacity: 9.0, distance: 18.0, pricePerHour: 13.0, status: 'available'),
+  //   Moto(id: "7", model: 'Suzuki Gixxer', fuelCapacity: 12.0, distance: 30.0, pricePerHour: 14.0, status: 'available'),
+  //   Moto(id: "8", model: 'Suzuki Hayabusa', fuelCapacity: 21.0, distance: 40.0, pricePerHour: 20.0, status: 'available'),
+  //   Moto(id: "9", model: 'Kawasaki Ninja 250', fuelCapacity: 17.0, distance: 25.0, pricePerHour: 18.0, status: 'available'),
+  //   Moto(id: "10", model: 'Kawasaki Z900', fuelCapacity: 17.0, distance: 35.0, pricePerHour: 22.0, status: 'available'),
+  // ];
+  late final MotoCrudUseCase motoCrudUseCase;
+  List<MotoEntity> motos = []; // Danh sách gốc từ Firebase
+  List<MotoEntity> filteredMotos = []; // Danh sách đã lọc để hiển thị
+  bool _isLoading = true; // State để kiểm soát trạng thái loading
   final TextEditingController _searchController = TextEditingController();
   String? _selectedPriceRange;
 
   @override
   void initState() {
     super.initState();
-    filteredMotos = motos;
+    // 1. Khởi tạo DataSource, cung cấp cho nó instance của Firestore
+    final MotoRemoteDataSource remoteDataSource =
+        MotoRemoteDataSourceImpl(FirebaseFirestore.instance);
+
+    // 2. Khởi tạo Repository, cung cấp cho nó DataSource vừa tạo
+    final MotoRepository repository = MotoRepositoryImpl(remoteDataSource);
+
+    // 3. Khởi tạo UseCase, cung cấp cho nó Repository vừa tạo
+    motoCrudUseCase = MotoCrudUseCase(repository);
+
+    // 4. Gọi hàm fetch như cũ, mọi thứ sẽ hoạt động
+    _fetchMotos();
+  }
+
+  Future<void> _fetchMotos() async {
+    try {
+      final fetchedMotos = await motoCrudUseCase.getAllMotos();
+      if (mounted) { // Kiểm tra widget còn tồn tại trên cây widget không
+        setState(() {
+          motos = fetchedMotos.cast<MotoEntity>(); // Gán dữ liệu vào danh sách gốc
+          filteredMotos = motos; // Gán dữ liệu vào danh sách hiển thị
+          _isLoading = false; // Tắt trạng thái loading
+        });
+      }
+    } catch (e) {
+      print("Failed to load motos: $e");
+      if (mounted) {
+        setState(() {
+          _isLoading = false; // Tắt loading ngay cả khi có lỗi
+        });
+        // Có thể hiển thị SnackBar hoặc thông báo lỗi ở đây
+      }
+    }
   }
 
   @override

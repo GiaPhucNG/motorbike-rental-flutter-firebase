@@ -1,7 +1,7 @@
 // lib/features/auth/presentation/pages/login_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rentapp/features/moto/presentation/pages/moto_crud_screen.dart';
+import 'package:rentapp/features/owner_main_page.dart';
 import 'package:rentapp/presentation/pages/onboarding_page.dart';
 import 'package:rentapp/features/auth/presentation/page/signup_page.dart';
 import 'package:rentapp/features/auth/presentation/page/forgotpassword_page.dart';
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MotoCrudScreen(),
+                  builder: (context) => const OwnerMainPage(),
                 ),
               );
             } else {

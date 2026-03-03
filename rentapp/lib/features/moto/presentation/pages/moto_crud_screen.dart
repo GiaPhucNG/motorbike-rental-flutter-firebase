@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentapp/core/constants/app_colors.dart';
 import 'package:rentapp/core/widgets/custom_snackbar.dart';
 import 'package:rentapp/core/widgets/loading_indicator.dart';
+import 'package:rentapp/data/models/moto_model.dart';
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 import 'package:rentapp/features/moto/presentation/bloc/moto_bloc.dart';
 import 'package:rentapp/features/moto/presentation/bloc/moto_event.dart';
 import 'package:rentapp/features/moto/presentation/bloc/moto_state.dart';
@@ -11,6 +13,7 @@ import 'package:rentapp/features/moto/presentation/widget/error_state_widget.dar
 import 'package:rentapp/features/moto/presentation/widget/moto_card.dart';
 import 'package:rentapp/features/moto/presentation/widget/moto_delete_dialog.dart';
 import 'package:rentapp/features/moto/presentation/widget/moto_form_dialog.dart';
+import 'package:rentapp/features/owner/presentation/page/moto_review_owner_page.dart';
 
 class MotoCrudScreen extends StatefulWidget {
   const MotoCrudScreen({super.key});
@@ -23,7 +26,6 @@ class _MotoCrudScreenState extends State<MotoCrudScreen> {
   @override
   void initState() {
     super.initState();
-    // Load motos khi màn hình được khởi tạo
     context.read<MotoBloc>().add(const LoadMotosEvent());
   }
 
@@ -46,11 +48,7 @@ class _MotoCrudScreenState extends State<MotoCrudScreen> {
       elevation: 0,
       scrolledUnderElevation: 1,
       surfaceTintColor: Colors.transparent,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_rounded),
-        color: AppColors.textDark,
-        onPressed: () => Navigator.pop(context),
-      ),
+      automaticallyImplyLeading: false,
       title: const Text(
         'Manage Vehicles',
         style: TextStyle(
@@ -109,7 +107,7 @@ class _MotoCrudScreenState extends State<MotoCrudScreen> {
         final moto = motos[index];
         return MotoCard(
           moto: moto,
-          onTap: () => _showMotoFormDialog(moto: moto),
+          onTap: () => _navigateToOwnerReviewPage(moto),
           onEdit: () => _showMotoFormDialog(moto: moto),
           onDelete: () => _handleDeleteMoto(moto.id!),
         );
@@ -133,7 +131,7 @@ class _MotoCrudScreenState extends State<MotoCrudScreen> {
 
   Future<void> _showMotoFormDialog({dynamic moto}) async {
     final result = await MotoFormDialog.show(context, moto: moto);
-    
+
     if (result != null && mounted) {
       if (moto != null) {
         context.read<MotoBloc>().add(UpdateMotoEvent(result));
@@ -145,9 +143,26 @@ class _MotoCrudScreenState extends State<MotoCrudScreen> {
 
   Future<void> _handleDeleteMoto(String motoId) async {
     final confirmed = await MotoDeleteDialog.show(context);
-    
+
     if (confirmed == true && mounted) {
       context.read<MotoBloc>().add(DeleteMotoEvent(motoId));
     }
+  }
+
+  void _navigateToOwnerReviewPage(MotoEntity entity) {
+    final moto = Moto(
+      id: entity.id,
+      model: entity.model,
+      fuelCapacity: entity.fuelCapacity,
+      distance: entity.distance,
+      pricePerHour: entity.pricePerHour,
+      status: entity.status,
+      location: entity.location,
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => MotoReviewOwnerPage(moto: moto)),
+    );
   }
 }

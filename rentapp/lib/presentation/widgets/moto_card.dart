@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp/presentation/pages/moto_details_page.dart';
-import '../../data/models/moto_model.dart';
+import 'package:rentapp/features/moto/domain/entities/moto_entity.dart';
 
 class MotoCard extends StatelessWidget {
-  final Moto moto;
+  final MotoEntity moto;
   const MotoCard({super.key, required this.moto});
 
   @override

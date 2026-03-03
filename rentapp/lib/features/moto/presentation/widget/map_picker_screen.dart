@@ -57,7 +57,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
       body: FlutterMap(
         options: MapOptions(
           initialCenter: widget.initialLocation ?? _defaultPosition,
-          initialZoom: 13.0,
+          initialZoom: 16.0,
           onTap: _selectLocation, // Gán hàm xử lý khi nhấn
         ),
         children: [
